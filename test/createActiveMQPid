@@ -1,0 +1,11 @@
+#!/bin/bash
+#ps -ef | grep activemq.jar|head -n 1 | awk '{print $2}'
+#PID_VERBOSE="$(ps -A -o pid,cmd|grep activemq.jar)"
+PID_VERBOSE="$(ps -ef | grep activemq.jar)"
+echo fetching pid of activemq
+echo $PID_VERBOSE
+PID="$(ps -ef | grep activemq.jar|head -n 1 | awk '{print $2}')"
+echo creating pidfile with content:$PID
+cat > /var/run/activemq.pid << EOF
+$PID
+EOF
